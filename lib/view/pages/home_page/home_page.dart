@@ -22,42 +22,55 @@ class HomePage extends StatelessWidget {
       crossAxisCount = 2; // Mobile
     }
     return Obx(() => Scaffold(
-          appBar: AppBar(title: const Text('Pixabay Image Gallery',style: TextStyle(color: Colors.white),),
-          backgroundColor: const Color.fromARGB(255, 7, 168, 255),
-          ),
-          body: NotificationListener<ScrollNotification>(
-            onNotification: (scrollInfo) {
-              if (!_controller.isLoading.value &&
-                  scrollInfo.metrics.pixels ==
-                      scrollInfo.metrics.maxScrollExtent) {
-                debouncer.run(() {
-                  _controller.incrementCurrentPage();
-                  _controller.fetchImages();
-                });
-              }
-              return false;
-            },
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount, // Adjust the number of columns
-                childAspectRatio: 1, // Adjust the aspect ratio if needed
-              ),
-              itemCount: _controller.imageList.length +
-                  (_controller.isLoading.value
-                      ? 1
-                      : 0), // Show loading indicator if loading
-              itemBuilder: (context, index) {
-                if (index < _controller.imageList.length) {
-                  return ImageCard(
-                      url: _controller.imageList[index]["url"],
-                      totalView: _controller.imageList[index]["views"].toString(),
-                      totalLike: _controller.imageList[index]["likes"].toString());
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
+          appBar: AppBar(
+            title: const Text(
+              'Pixabay Image Gallery',
+              style: TextStyle(color: Colors.white),
             ),
+            backgroundColor: const Color.fromARGB(255, 7, 168, 255),
           ),
+          body: _controller.isLoading.value
+              ? const SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              : NotificationListener<ScrollNotification>(
+                  onNotification: (scrollInfo) {
+                    if (!_controller.isLoading.value &&
+                        scrollInfo.metrics.pixels ==
+                            scrollInfo.metrics.maxScrollExtent) {
+                      debouncer.run(() {
+                        _controller.incrementCurrentPage();
+                        _controller.fetchImages();
+                      });
+                    }
+                    return false;
+                  },
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          crossAxisCount, // Adjust the number of columns
+                      childAspectRatio: 1, // Adjust the aspect ratio if needed
+                    ),
+                    itemCount: _controller.imageList.length +
+                        (_controller.isLoading.value
+                            ? 1
+                            : 0), // Show loading indicator if loading
+                    itemBuilder: (context, index) {
+                      if (index < _controller.imageList.length) {
+                        return ImageCard(
+                            url: _controller.imageList[index]["url"],
+                            totalView: _controller.imageList[index]["views"]
+                                .toString(),
+                            totalLike: _controller.imageList[index]["likes"]
+                                .toString());
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  ),
+                ),
         ));
   }
 }

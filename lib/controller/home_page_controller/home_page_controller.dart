@@ -11,13 +11,13 @@ class HomePageController extends GetxController {
     fetchImages();
   }
 
-  final String apiKey =
-      '46147025-1fd2bea0215ff2f0c7df1bf49'; 
+  final String apiKey = '46147025-1fd2bea0215ff2f0c7df1bf49';
   final Dio dio = Dio();
   RxInt currentPage = 1.obs;
   final int perPage = 15;
   RxList imageList = [].obs;
   Future<bool> fetchImages() async {
+    isLoading(true);
     final String url =
         'https://pixabay.com/api/?key=$apiKey&q=nature&image_type=photo&per_page=$perPage&page=${currentPage.value}';
 
@@ -43,7 +43,9 @@ class HomePageController extends GetxController {
     } catch (e) {
       debugPrint('Error: $e');
       return false;
-    } finally {}
+    } finally {
+      isLoading(false);
+    }
   }
 
   Future<void> incrementCurrentPage() async {
