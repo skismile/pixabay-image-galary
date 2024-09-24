@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
             ),
             backgroundColor: const Color.fromARGB(255, 7, 168, 255),
           ),
-          body: _controller.isLoading.value
+          body: _controller.initialIsLoading.value
               ? const SizedBox(
                   height: double.infinity,
                   width: double.infinity,

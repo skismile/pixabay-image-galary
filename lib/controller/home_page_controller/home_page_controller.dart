@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
+  RxBool initialIsLoading = false.obs;
   RxBool isLoading = false.obs;
 
   @override
@@ -17,7 +18,7 @@ class HomePageController extends GetxController {
   final int perPage = 15;
   RxList imageList = [].obs;
   Future<bool> fetchImages() async {
-    isLoading(true);
+    currentPage.value == 1 ? initialIsLoading(true) : isLoading(true);
     final String url =
         'https://pixabay.com/api/?key=$apiKey&q=nature&image_type=photo&per_page=$perPage&page=${currentPage.value}';
 
@@ -45,6 +46,7 @@ class HomePageController extends GetxController {
       return false;
     } finally {
       isLoading(false);
+      initialIsLoading(false);
     }
   }
 

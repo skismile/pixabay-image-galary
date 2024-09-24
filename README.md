@@ -1,16 +1,28 @@
-# gallery
+# Pixabay Image Gallery
 
-A new Flutter project.
+A simple and responsive image gallery application built with Flutter that utilizes the Pixabay API to fetch and display stunning images.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Display images in a grid layout.
+- Full screen preview
+- Responsive design for various screen sizes.
+- Single Click download
+- paginated view
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter
+- Pixabay API
+- Dart
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/skismile/pixabay-image-galary.git
+2. Deployed Link:
+   ```bash
+   https://pixabey-image-gallery.netlify.app/
